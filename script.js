@@ -76,7 +76,6 @@ function alterarContexto(contexto) {
 }
 
 const contagemRegressiva = () => {
-    tempoSegundos -= 1
     if (tempoSegundos <= 0) {
         somAlarme.play()
         btnStartPauseText.textContent = "Começar"
@@ -84,12 +83,14 @@ const contagemRegressiva = () => {
         mostrarTempo()
         alert('Tempo encerrado!')
         zerar()
+        mostrarTempo()
         return
-    }
-    mostrarTempo()
-}
-
-btnStartPause.addEventListener('click', iniciarPausar)
+        }
+        tempoSegundos -= 1
+        mostrarTempo()
+        }
+        
+        btnStartPause.addEventListener('click', iniciarPausar)
 
 function iniciarPausar() {
     if (intervaloId) {
