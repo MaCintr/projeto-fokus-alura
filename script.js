@@ -80,28 +80,34 @@ const contagemRegressiva = () => {
         somAlarme.play()
         btnStartPauseText.textContent = "Começar"
         iconeStartPause.setAttribute('src', '/imagens/play_arrow.png')
-        mostrarTempo()
         alert('Tempo encerrado!')
+        const focoAtivo = html.getAttribute('data-contexto') == 'foco'
+        if (focoAtivo) {
+            const evento = new CustomEvent('FocoFinalizado')
+            document.dispatchEvent(evento)
+            console.log('Evento FocoFinalizado disparado', evento)
+        }
         zerar()
-        mostrarTempo()
         return
-        }
-        tempoSegundos -= 1
-        mostrarTempo()
-        }
-        
-        btnStartPause.addEventListener('click', iniciarPausar)
+    }
+    tempoSegundos -= 1
+    mostrarTempo()
+}
+
+btnStartPause.addEventListener('click', iniciarPausar)
 
 function iniciarPausar() {
     if (intervaloId) {
         btnStartPauseText.textContent = "Começar"
         iconeStartPause.setAttribute('src', '/imagens/play_arrow.png')
+        iconeStartPause.setAttribute('alt', 'play arrow')
         somPausar.play()
         zerar()
         return
     }
     btnStartPauseText.textContent = "Pausar"
     iconeStartPause.setAttribute('src', '/imagens/pause.png')
+    iconeStartPause.setAttribute('alt', 'pause arrow')
     somInicio.play()
     intervaloId = setInterval(contagemRegressiva, 1000)
 }
